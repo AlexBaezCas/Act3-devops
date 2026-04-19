@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clonar repo') {
+            steps {
+                git 'https://github.com/AlexBaezCas/Act3-devops.git'
+            }
+        }
+
+        stage('Build Docker') {
+            steps {
+                sh 'docker build --no-cache -t flask_app .'
+            }
+        }
+
+        stage('Run Docker') {
+            steps {
+                sh '''
+                docker stop flask_app || true
+                docker rm flask_app || true
+                docker run -d -p 5000:5000 --name flask_app flask_app
+                '''
+            }
+        }
+    }
+}
