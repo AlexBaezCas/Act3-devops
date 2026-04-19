@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clonar repo') {
             steps {
-                git 'https://github.com/AlexBaezCas/Act3-devops.git'
+                git branch: 'main', url: 'https://github.com/AlexBaezCas/Act3-devops.git'
             }
         }
 
